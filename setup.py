@@ -4,10 +4,11 @@ import sys
 from shutil import rmtree
 from setuptools import setup, find_packages, Command
 
+# TODO Check into GitHUB actions to run the tests on pull request.
 
 DESCRIPTION = 'SNAQL (Templated SQL) with the ability to pull data.'
 HERE_PATH = os.path.dirname(os.path.abspath(__file__))
-VERSION = '0.2.1'
+VERSION = '0.2.0'
 
 
 try:
@@ -15,44 +16,6 @@ try:
         long_description = '\n' + f.read()
 except IOError:
     long_description = DESCRIPTION
-
-
-# class UploadCommand(Command):
-#     """Support setup.py upload."""
-#
-#     description = 'Build and publish the package.'
-#     user_options = []
-#
-#     @staticmethod
-#     def status(s):
-#         """Prints things in bold."""
-#         print('\033[1m{0}\033[0m'.format(s))
-#
-#     def initialize_options(self):
-#         pass
-#
-#     def finalize_options(self):
-#         pass
-#
-#     def run(self):
-#         try:
-#             self.status('Removing previous builds…')
-#             rmtree(os.path.join(HERE_PATH, 'dist'), ignore_errors=True)
-#         except OSError:
-#             pass
-#
-#         self.status('Building Source and Wheel (universal) distribution…')
-#         os.system('{0} setup.py sdist bdist_wheel --universal'.format(sys.executable))
-#
-#         self.status('Uploading the package to PyPI via Twine…')
-#         os.system('twine upload dist/*')
-#
-#         self.status('Pushing git tags…')
-#         os.system('git tag v{0}'.format(VERSION))
-#         os.system('git push --tags')
-#
-#         sys.exit()
-
 
 setup(
     name='jinjaql',
@@ -67,7 +30,7 @@ setup(
     long_description_content_type='text/markdown',
     include_package_data=True,
     install_requires=[
-        'Jinja2>=2.9.5',
+        'Jinja2>=2.9.5', # TODO Check if a different version needs to be pinned
         'schema>=0.6.5',
     ],
     classifiers=[
