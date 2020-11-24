@@ -29,6 +29,7 @@ from jinjaql.convertors import (
 )
 
 import jinjaql.engine as engine
+import jinjaql.cache as cache
 
 
 PY = sys.version_info
@@ -162,7 +163,7 @@ class JinJAQL(object):
             self,
             folder_path: pathlib.Path,
             engine=engine.default,
-            cache=False,
+            cache=cache.default,
     ):
         folder_path = pathlib.Path(folder_path)
         self.jinja_env = Environment(
@@ -243,16 +244,11 @@ class JinJAQL(object):
                 connection_string=meta_struct['funcs'][name]['connection_string'],
             )
 
-            # return meta_struct['funcs'][name]['sql']
-
+        fn = self._cache()(fn)
         fn.__doc__ = meta_struct['funcs'][name]['note']
         fn.is_cond = meta_struct['funcs'][name]['is_cond']
         fn.func_name = str(name)
-        if self._cache:
-            cache_fn = functools.lru_cache()(fn)
-            return cache_fn
-        else:
-            return fn
+        return fn
 
     def gen_dep_graph(self, node, accum):
         for edge in node.edges:
