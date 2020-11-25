@@ -3,8 +3,6 @@
 name: Run Unittest
 
 on:
-  push:
-    branches: [ testing ]
   pull_request:
     branches: [ master ]
 
