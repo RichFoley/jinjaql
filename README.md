@@ -1,3 +1,9 @@
+![Run Unittest](https://github.com/RichFoley/jinjaql/workflows/Run%20Unittest/badge.svg)
+![GitHub issues](https://img.shields.io/github/issues/RichFoley/jinjaql)
+
+![PyPI](https://img.shields.io/pypi/v/jinjaql)
+![PyPI - Downloads](https://img.shields.io/pypi/dm/jinjaql?label=PyPI%20downloads)
+
 # A SNAQL Based Query Engine
 
 This project is a fork of the SNAQL project, where we hope to add the ability to pass in an optional function to 
