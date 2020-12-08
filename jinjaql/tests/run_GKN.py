@@ -4,6 +4,7 @@ import jinjaql.engine as engine
 import pathlib
 import pandas as pd
 import pyodbc
+import functools
 import timeit
 
 def nwt_engine(query_string: str, connection_string: str):
@@ -22,7 +23,7 @@ def nwt_engine(query_string: str, connection_string: str):
 
 sql_root = pathlib.Path(r'C:\Users\david.smit\PycharmProjects\jinjaql\jinjaql\tests\queries')
 
-snaql = JinJAQL(sql_root, engine=nwt_engine, cache=True)
+snaql = JinJAQL(sql_root, engine=nwt_engine,)
 
 gkn_queries = snaql.load_queries('GKN_query.sql')
 context = {
@@ -32,7 +33,10 @@ context = {
 }
 
 def test_query():
-    gkn_queries.top_ten(**context)
+    return gkn_queries.top_ten(**context)
 
-total_time = timeit.timeit(test_query, number=5)
-print(total_time)
+
+print(test_query())
+# total_time = timeit.timeit(test_query, number=5)
+# print(total_time)
+
