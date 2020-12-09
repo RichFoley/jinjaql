@@ -4,7 +4,6 @@ import copy
 import collections
 import types
 import sys
-import functools
 from collections import namedtuple
 import pathlib
 
@@ -28,8 +27,8 @@ from jinjaql.convertors import (
     guard_timedelta,
 )
 
-import jinjaql.engine as engine
-import jinjaql.cache as cache
+from jinjaql.engine import default as default_engine
+from jinjaql.cache import default as default_cache
 
 
 PY = sys.version_info
@@ -162,8 +161,8 @@ class JinJAQL(object):
     def __init__(
             self,
             folder_path: pathlib.Path,
-            engine=engine.default,
-            cache=cache.default,
+            engine=None,
+            cache=None,
     ):
         folder_path = pathlib.Path(folder_path)
         self.jinja_env = Environment(
@@ -184,8 +183,8 @@ class JinJAQL(object):
             'guards.bool': guard_bool,
         })
         self.jinja_env.extend(sql_params={})
-        self._engine = engine
-        self._cache = cache
+        self._engine = engine or default_engine
+        self._cache = cache or default_cache
 
     def gen_func(self, name, meta_struct, env):
 
